@@ -1,7 +1,8 @@
 {
   "name": "stringspace",
   "version": "0.0.1",
-  "dependencies": {
-  	"requirejs": "~2.1.11"
+  "devDependencies": {
+  	"requirejs": "~2.1.11",
+    "underscore": "~1.6.0"
   }
 }

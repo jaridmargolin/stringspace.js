@@ -26,9 +26,10 @@
               urlArgs: "bust=" + (new Date()).getTime(),
               baseUrl: '../src',
               paths: {
-                'proclaim' : rootDir + '/node_modules/proclaim/lib/proclaim',
+                'underscore' : rootDir + '/bower_components/underscore/underscore',
+                'proclaim'   : rootDir + '/node_modules/proclaim/lib/proclaim',
                 'sinon'      : rootDir + '/node_modules/sinon/pkg/sinon',
-                'mocha'    : rootDir + '/node_modules/mocha/mocha'
+                'mocha'      : rootDir + '/node_modules/mocha/mocha'
               },
               shim: {
                 sinon: { exports: 'sinon' }
