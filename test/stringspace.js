@@ -24,7 +24,7 @@ describe('stringspace', function () {
     prop: 'val',
     nested: {
       attr: 'str',
-      params: { name: 'name' } 
+      params: { name: 'name' }
     }
   };
 
