@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- meta -->
+        <meta charset="utf-8" />
+        <title>stringspace tests</title>
+        
+        <!-- styles -->
+        <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+    </head>
+
+    <body>
+
+        <div id="workboard" style="position: absolute; visibility: hidden;"></div>
+
+        <div id="mocha"></div>
+
+        <!-- tests -->
+        <script src="../bower_components/requirejs/require.js"></script>
+        <script>
+            var curURL  = window.location.href.toString(),
+                curDir  = curURL.slice(0, curURL.lastIndexOf('/')),
+                rootDir = curDir.slice(0, curDir.lastIndexOf('/'));
+
+            require.config({
+              urlArgs: "bust=" + (new Date()).getTime(),
+              baseUrl: '../src',
+              paths: {
+                'proclaim' : rootDir + '/node_modules/proclaim/lib/proclaim',
+                'sinon'      : rootDir + '/node_modules/sinon/pkg/sinon',
+                'mocha'    : rootDir + '/node_modules/mocha/mocha'
+              },
+              shim: {
+                sinon: { exports: 'sinon' }
+              }
+            });
+
+            require(['require', 'mocha'], function(require) {
+              // mocha setup
+              mocha.setup('bdd');
+              mocha.reporter('html');
+              // begin tests
+              require([
+                './stringspace.js'
+              ], function(require) {
+                return (window.mochaPhantomJS)
+                  ? mochaPhantomJS.run()
+                  : mocha.run();
+              });
+            });
+        </script>
+    </body>
+</html>
