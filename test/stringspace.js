@@ -1,9 +1,7 @@
-/*
- * test/stringspace.js:
- *
- * (C) 2014 First Opinion
- * MIT LICENCE
- *
+/*!
+ * test/stringspace.js
+ * 
+ * Copyright (c) 2014
  */
 
 define([
