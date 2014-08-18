@@ -3,19 +3,7 @@ stringspace.js [![Build Status](https://travis-ci.org/jaridmargolin/stringspace.
 
 Utility for using namespaced strings to get and set object properties.
 
----
 
-## Install
-
-```
-$ npm install stringspace.js
-```
-
-```
-bower install stringspace.js
-```
-
----
 
 ## API
 
@@ -25,8 +13,7 @@ Create new Stringspace utiliy instance.
 
 #### PARAMETERS:
 
-* **opts**:
-  * **seperator**: String -- '.' -- The character used as the namespace seperator.
+* **seperator**: String -- '.' -- The character used as the namespace seperator.
 
 #### Returns
 
@@ -35,9 +22,7 @@ Stringspace instance.
 ##### EXAMPLE USAGE:
 
 ```
-var strspc = new Stringspace({
-  seperator: ':'
-});
+var strspc = new Stringspace(':');
 ```
 
 ### Stringspace.set(object, stringName, value)
@@ -81,11 +66,9 @@ Value at the speciied value.
 var value = strspc.get(obj, 'nested:param:name');
 ```
 
----
+
 
 ## TESTS
-
-### Local
 
 **Install Dependencies**
 
@@ -93,17 +76,13 @@ var value = strspc.get(obj, 'nested:param:name');
 npm install
 ```
 
-```
-bower install
-```
-
 **Run/View**
 
 ```
-grunt test-local
+npm test
 ```
 
----
+
 
 ## License
 

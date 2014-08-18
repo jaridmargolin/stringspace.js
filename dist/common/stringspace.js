@@ -4,7 +4,7 @@
  * Copyright (c) 2014
  */
 
-define(function () {
+
 
 
 /* -----------------------------------------------------------------------------
@@ -113,7 +113,6 @@ Stringspace.prototype._loop = function (obj, key, opts) {
  * export
  * ---------------------------------------------------------------------------*/
 
-return Stringspace;
+module.exports = Stringspace;
 
 
-});

@@ -1,8 +1,12 @@
 {
-  "name": "stringspace",
-  "version": "0.0.2",
-  "devDependencies": {
-  	"requirejs": "~2.1.11",
-    "underscore": "~1.6.0"
-  }
+  "name": "stringspace.js",
+  "version": "0.1.0",
+  "ignore": [
+    "**/.*",
+    "Gruntfile.js",
+    "src",
+    "docs",
+    "test",
+    "build"
+  ]
 }
