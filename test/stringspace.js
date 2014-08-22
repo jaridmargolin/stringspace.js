@@ -28,10 +28,11 @@ var base = {
 };
 
 // Common values
-var nameStr = 'nested.params.name',
-    descStr = 'nested.params.desc',
-    attrStr = 'nested.attr',
-    ageStr  = 'nested.params.meta.age';
+var nestedStr = 'nested';
+var nameStr   = 'nested.params.name';
+var descStr   = 'nested.params.desc';
+var attrStr   = 'nested.attr';
+var ageStr    = 'nested.params.meta.age';
 
 // Object to manipulte each time
 var obj;
@@ -98,6 +99,47 @@ describe('stringspace', function () {
     it('Should return value set', function () {
       var value = strspc.set(obj, ageStr, 23);
       assert.equal(value, 23);
+    });
+
+    it('Should deep merge value.', function () {
+      var value = strspc.set(obj, nestedStr, {
+        attr: 'newstr',
+        params: { age: 24 }
+      }, true);
+
+      assert.equal(obj.nested.attr, 'newstr');
+      assert.equal(obj.nested.params.name, 'name');
+      assert.equal(obj.nested.params.age, 24);
+    });
+
+    it('Should not deep merge value.', function () {
+      var toMerge = {
+        attr: 'newstr',
+        params: { age: 24 }
+      };
+
+      var value = strspc.set(obj, nestedStr, toMerge);
+
+      assert.equal(obj.nested, toMerge);
+    });
+
+  });
+
+  /* ---------------------------------------------------------------------------
+   * set
+   * -------------------------------------------------------------------------*/
+
+  describe('remove', function () {
+
+    it('Should remove first level value from obj.', function () {
+      strspc.remove(obj, 'nested');
+      assert.notOk(obj.nested);
+    });
+
+    it('Should remove nested value from obj.', function () {
+      strspc.remove(obj, 'nested:params');
+      assert.ok(obj.nested);
+      assert.notOk(obj.nested.params);
     });
 
   });
