@@ -1,6 +1,9 @@
 {
   "name": "stringspace.js",
-  "version": "0.2.0",
+  "version": "0.2.1",
+  "dependencies": {
+    "assist.js": "~0.2.0"
+  },
   "ignore": [
     "**/.*",
     "Gruntfile.js",

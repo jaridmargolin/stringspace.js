@@ -15,42 +15,31 @@
 }(this, function () {
 
 /*!
- * stringspace.js
+ * isArray.js
  * 
  * Copyright (c) 2014
  */
-var utils, stringspace;
-utils = function () {
+var assistIsArray, assistIsObject, assistDeepMerge, utils, stringspace;
+assistIsArray = function (value) {
+  return Object.prototype.toString.call(value) === '[object Array]';
+};
+/*!
+ * isObject.js
+ * 
+ * Copyright (c) 2014
+ */
+assistIsObject = function (value) {
+  return value === Object(value);
+};
+/*!
+ * deepMerge.js
+ * 
+ * Copyright (c) 2014
+ */
+assistDeepMerge = function (isArray, isObject) {
   /* -----------------------------------------------------------------------------
-   * utils
+   * deepMerge
    * ---------------------------------------------------------------------------*/
-  var _ = {};
-  /**
-   * Determine if a given value is an Object.
-   *
-   * @example
-   * var isObj = isObject(obj);
-   *
-   * @public
-   *
-   * @param {*} value - Value to test.
-   */
-  _.isObject = function (value) {
-    return typeof value === 'object';
-  };
-  /**
-   * Determine if a given value is an Array.
-   *
-   * @example
-   * var isArr = isArray(array);
-   *
-   * @public
-   *
-   * @param {*} value - Value to test.
-   */
-  _.isArray = function (value) {
-    return Object.prototype.toString.call(value) === '[object Array]';
-  };
   /**
    * Deep merge 2 objects.
    *
@@ -62,20 +51,20 @@ utils = function () {
    * @param {object} dest - Object to merge properties into.
    * @param {object} obj - Object to merge properties from.
    */
-  _.deep = function (dest, obj) {
+  var deepMerge = function (dest, obj) {
     for (var k in obj) {
       var destVal = dest[k] || {};
       var objVal = obj[k];
-      var isObj = _.isObject(objVal);
-      var isArr = _.isArray(objVal);
+      var isObj = isObject(objVal);
+      var isArr = isArray(objVal);
       if (isObj || isArr) {
-        if (isObj && !_.isObject(destVal)) {
+        if (isObj && !isObject(destVal)) {
           dest[k] = {};
         }
-        if (isArr && !_.isArray(destVal)) {
+        if (isArr && !isArray(destVal)) {
           dest[k] = [];
         }
-        dest[k] = _.deep(destVal, objVal);
+        dest[k] = deepMerge(destVal, objVal);
       } else {
         dest[k] = objVal;
       }
@@ -83,10 +72,25 @@ utils = function () {
     return dest;
   };
   /* -----------------------------------------------------------------------------
-   * export
+   * deepMerge
    * ---------------------------------------------------------------------------*/
-  return _;
-}();
+  return deepMerge;
+}(assistIsArray, assistIsObject);
+/*!
+ * utils.js
+ * 
+ * Copyright (c) 2014
+ */
+utils = function (isArray, isObject, deepMerge) {
+  /* -----------------------------------------------------------------------------
+   * utils
+   * ---------------------------------------------------------------------------*/
+  return {
+    isObject: isObject,
+    isArray: isArray,
+    deepMerge: deepMerge
+  };
+}(assistIsArray, assistIsObject, assistDeepMerge);
 /*!
  * stringspace.js
  * 
@@ -154,7 +158,7 @@ stringspace = function (_) {
     this._loop(obj, key, {
       last: function (obj, parts, i) {
         var curVal = obj[parts[i]];
-        return typeof curVal !== 'object' || !deep ? obj[parts[i]] = val : obj[parts[i]] = _.deep(curVal, val);
+        return typeof curVal !== 'object' || !deep ? obj[parts[i]] = val : obj[parts[i]] = _.deepMerge(curVal, val);
       },
       missing: function (obj, parts, i) {
         obj[parts[i]] = {};

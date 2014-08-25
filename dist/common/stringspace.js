@@ -76,7 +76,7 @@ Stringspace.prototype.set = function (obj, key, val, deep) {
 
       return (typeof curVal !== 'object' || !deep)
         ? (obj[parts[i]] = val)
-        : (obj[parts[i]] = _.deep(curVal, val));
+        : (obj[parts[i]] = _.deepMerge(curVal, val));
     },
     missing: function (obj, parts, i) {
       obj[parts[i]] = {};
