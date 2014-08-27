@@ -2,7 +2,7 @@
   "name": "stringspace.js",
   "description": "Utility for using namespaced strings to get and set object properties.",
   "author": "Jarid Margolin <jaridmargolin@gmail.com>",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "homepage": "https://github.com/jaridmargolin/stringspace.js",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
   },
   "main": "dist/common/stringspace.js",
   "dependencies": {
-    "assist.js": "~0.2.0"
+    "assist.js": "~0.3.0"
   },
   "devDependencies": {
     "easy-build": "~0.0.1",
