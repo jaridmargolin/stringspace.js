@@ -4,9 +4,9 @@
  * Copyright (c) 2014
  */
 
-var isArray = require('assist/isArray');
-var isObject = require('assist/isObject');
-var deepMerge = require('assist/deepMerge');
+var isArray = require('assist.js/dist/common/isArray');
+var isObject = require('assist.js/dist/common/isObject');
+var deepMerge = require('assist.js/dist/common/deepMerge');
 
 
 /* -----------------------------------------------------------------------------
