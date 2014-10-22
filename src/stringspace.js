@@ -29,7 +29,6 @@ var Stringspace = function (seperator) {
   this.seperator = seperator || '.';
 };
 
-
 /**
  * Get an object prop by string stringspace.
  *
@@ -43,18 +42,8 @@ var Stringspace = function (seperator) {
  *   the object.
  */
 Stringspace.prototype.get = function (obj, key) {
-  var val;
-
-  this._loop(obj, key, {
-    last: function (obj, parts, i) { val = obj[parts[i]]; },
-    missing: function (obj, parts, i) {
-      return false;
-    }
-  });
-
-  return val;
+  return this._get(obj, key).val;
 };
-
 
 /**
  * Set an object prop by string stringspace.
@@ -71,23 +60,17 @@ Stringspace.prototype.get = function (obj, key) {
  * @param {boolean} deep - Indicated if conflicts should be reserved
  *   with a deep merge or an overwrite.
  */
-Stringspace.prototype.set = function (obj, key, val, deep) {
-  this._loop(obj, key, {
-    last: function (obj, parts, i) {
-      var curVal = obj[parts[i]];
+Stringspace.prototype.set = function (obj, keyStr, val, deep) {
+  var result = this._get(obj, keyStr, true);
+  var curVal = result.val;
+  var parent = result.parent;
+  var key    = result.key;
 
-      return (typeof curVal !== 'object' || !deep)
-        ? (obj[parts[i]] = val)
-        : (obj[parts[i]] = _.deepMerge(curVal, val));
-    },
-    missing: function (obj, parts, i) {
-      obj[parts[i]] = {};
-    }
-  });
+  var shouldMerge  = _.isObject(curVal) && deep;
 
-  return val;
+  parent[key] = shouldMerge ? _.deepMerge(curVal, val) : val;
+  return parent[key];
 };
-
 
 /**
  * Remove value from obj
@@ -98,21 +81,15 @@ Stringspace.prototype.set = function (obj, key, val, deep) {
  * @public
  *
  * @param {object} obj - The object to remove value from.
- * @param {string} key - String representing the key to remove.
+ * @param {string} keyStr - String representing the key to remove.
  */
-Stringspace.prototype.remove = function (obj, key) {
-  var lastSpacer = key.lastIndexOf(':');
-  var itemKey = key;
-  var parent = obj;
+Stringspace.prototype.remove = function (obj, keyStr) {
+  var result = this._get(obj, keyStr);
+  var parent = result.parent;
+  var key    = result.key;
 
-  if (lastSpacer > 0) {
-    parent = this.get(obj, key.slice(0, lastSpacer));
-    itemKey = key.slice(lastSpacer + 1);
-  }
-
-  delete parent[itemKey];
+  delete parent[key];
 };
-
 
 /**
  * Helper method to recursively loop through object.
@@ -120,28 +97,26 @@ Stringspace.prototype.remove = function (obj, key) {
  * @private
  *
  * @param {object} obj - The object to act on.
- * @param {string} key - Formatted string representing a key in
+ * @param {string} keyStr - Formatted string representing a key in
  *   the object.
- * @param {object} opts - Object containing methods on how to handle
- *   various situations encountered during loop.
+ * @param {object} create - Flag for if we should create an empty object
+ *   when an undefined property is found.
  */
-Stringspace.prototype._loop = function (obj, key, opts) {
-  var parts = key.split(this.seperator);
+Stringspace.prototype._get = function (obj, keyStr, create) {
+  var parts = keyStr.split(this.seperator);
 
   for (var i = 0, len = parts.length; i < len; i++) {
-    // If last stringspace - set value
-    if (len === i+1) {
-      opts.last(obj, parts, i);
-      return;
-    }
-    // If no stringspace - create & set obj to current
-    if (!obj[parts[i]]) {
-      if (opts.missing(obj, parts, i) === false) {
-        return undefined;
-      }
+    var key = parts[i];
+    var val  = obj[key];
+
+    var isLast = len === i + 1;
+    var isUndf = !val && !create;
+
+    if (isLast || isUndf) {
+      return { key: key, val: val, parent: obj };
     }
 
-    obj = obj[parts[i]];
+    obj = obj[key] = val || {};
   }
 };
 

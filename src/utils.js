@@ -5,10 +5,9 @@
  */
 
 define([
-  'assist/isArray',
   'assist/isObject',
   'assist/deepMerge'
-], function (isArray, isObject, deepMerge) {
+], function (isObject, deepMerge) {
 
 
 /* -----------------------------------------------------------------------------
@@ -17,7 +16,6 @@ define([
 
 return {
   isObject: isObject,
-  isArray: isArray,
   deepMerge: deepMerge
 };
 

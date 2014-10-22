@@ -137,7 +137,7 @@ describe('stringspace', function () {
     });
 
     it('Should remove nested value from obj.', function () {
-      strspc.remove(obj, 'nested:params');
+      strspc.remove(obj, 'nested.params');
       assert.ok(obj.nested);
       assert.notOk(obj.nested.params);
     });
