@@ -6,9 +6,8 @@
 
 define([
   'proclaim',
-  'sinon',
   'stringspace/stringspace'
-], function (assert, sinon, Stringspace) {
+], function (assert, Stringspace) {
 
 
 /* -----------------------------------------------------------------------------

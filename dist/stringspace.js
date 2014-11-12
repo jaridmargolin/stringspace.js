@@ -19,8 +19,8 @@
  * 
  * Copyright (c) 2014
  */
-var assistIsObject, assistIsArray, assistDeepMerge, utils, stringspace;
-assistIsObject = function (value) {
+var utlIsObject, utlIsArray, utlCompanionDeepMerge, utils, stringspace;
+utlIsObject = function (value) {
   return value === Object(value);
 };
 /*!
@@ -28,7 +28,7 @@ assistIsObject = function (value) {
  * 
  * Copyright (c) 2014
  */
-assistIsArray = function (value) {
+utlIsArray = function (value) {
   return Object.prototype.toString.call(value) === '[object Array]';
 };
 /*!
@@ -36,7 +36,7 @@ assistIsArray = function (value) {
  * 
  * Copyright (c) 2014
  */
-assistDeepMerge = function (isArray, isObject) {
+utlCompanionDeepMerge = function (isArray, isObject) {
   /* -----------------------------------------------------------------------------
    * deepMerge
    * ---------------------------------------------------------------------------*/
@@ -75,7 +75,7 @@ assistDeepMerge = function (isArray, isObject) {
    * deepMerge
    * ---------------------------------------------------------------------------*/
   return deepMerge;
-}(assistIsArray, assistIsObject);
+}(utlIsArray, utlIsObject);
 /*!
  * utils.js
  * 
@@ -89,7 +89,7 @@ utils = function (isObject, deepMerge) {
     isObject: isObject,
     deepMerge: deepMerge
   };
-}(assistIsObject, assistDeepMerge);
+}(utlIsObject, utlCompanionDeepMerge);
 /*!
  * stringspace.js
  * 

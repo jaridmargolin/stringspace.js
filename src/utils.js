@@ -5,8 +5,8 @@
  */
 
 define([
-  'assist/isObject',
-  'assist/deepMerge'
+  'utl/isObject',
+  'utl-companion/deepMerge'
 ], function (isObject, deepMerge) {
 
 

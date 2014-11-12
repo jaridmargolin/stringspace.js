@@ -1,5 +1,6 @@
 {
   "paths": {
-    "assist": "assist.js/dist/common"
+    "utl": "utl.js/dist/common",
+    "utl-companion": "utl-companion.js/dist/common"
   }
 }

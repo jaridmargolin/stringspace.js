@@ -16,12 +16,12 @@
   },
   "main": "dist/common/stringspace.js",
   "dependencies": {
-    "assist.js": "~0.3.0"
+    "utl.js": "~0.1.0",
+    "utl-companion.js": "0.0.1"
   },
   "devDependencies": {
-    "easy-build": "~0.0.6",
+    "easy-build": "~0.1.0",
     "proclaim": "~2.0.0",
-    "sinon": "~1.10.1",
     "underscore": "~1.6.0"
   },
   "license": "MIT"
